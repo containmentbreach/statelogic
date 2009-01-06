@@ -1,13 +1,47 @@
-Statelogic
-==========
+=== Introduction
+Hi there!
 
-Introduction goes here.
+=== Features
+- State transitions validation.
+- State-scoped validations.
+- State-scoped lifecycle callbacks (before|after_save, etc)
+- ???????
+- PROFIT!!!11
+As a bonus you get multiple conditions in <tt>:if|:unless => [:one, :two, ...]</tt>
+callback and validation options (as in edge Rails).
 
+=== Installation
+  gem install pipa-statelogic --source http://gems.github.com
 
-Example
-=======
+Installable as a plugin too.
 
-Example goes here.
+=== Bugs & such
+http://pipa.lighthouseapp.com/projects/22857-statelogic
+
+=== Example
+    class Order < ActiveRecord::Base
+      ...
+      statelogic do
+        # you get methods +unpaid?+ and +was_unpaid?+.
+        # may be more than one initial state.
+        initial_state 'unpaid' do
+          transitions_to 'ready', 'suspended' # won't let you change to wrong states
+        end
+        state 'ready' do # you get +ready?+, +was_ready?+
+          transitions_to 'redeemed', 'suspended'
+          validates_presence_of :txref # scoped validations
+          before_save :prepare_for_plucking # scoped callbacks
+        end
+        state 'redeemed' do # likewise
+          transitions_to 'suspended'
+          validates_presence_of :txref, :redeemed_at, :facility_id # scoped validations
+        end
+        state 'suspended' do # you guess
+          transitions_to 'unpaid', 'ready', 'redeemed'
+        end
+      end
+      ...
+    end
 
 
 Copyright (c) 2009 Igor Gunko, released under the MIT license

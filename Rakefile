@@ -5,7 +5,7 @@ require 'rake/rdoctask'
 desc 'Default: run unit tests.'
 task :default => :test
 
-desc 'Test the statelogic plugin.'
+desc 'Test Statelogic'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.libs << 'test'
@@ -13,11 +13,12 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = true
 end
 
-desc 'Generate documentation for the statelogic plugin.'
+desc 'Generate documentation for Statelogic.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'Statelogic'
+  files =['README.rdoc', 'MIT-LICENSE', 'lib/**/*.rb']
+  rdoc.rdoc_files.add(files)
+  rdoc.main = "README.rdoc" # page to start on
+  rdoc.title = "Statelogic Documentation"
+  rdoc.rdoc_dir = 'doc/rdoc' # rdoc output folder
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
-  rdoc.rdoc_files.include('lib/**/*.rb')
 end

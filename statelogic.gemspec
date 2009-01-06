@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'statelogic'
-  s.version = '0.0.2'
+  s.version = '0.0.3'
   s.date = '2009-01-06'
   s.authors = ['Igor Gunko']
   s.email = 'tekmon@gmail.com'
@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency('thoughtbot-shoulda', ['>= 2.0.6'])
+      s.add_development_dependency('sqlite3-ruby', ['>= 1.2.4'])
     else
     end
   else

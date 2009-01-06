@@ -10,8 +10,8 @@ module Statelogic
       DEFAULT_OPTIONS = {:attribute => :state}.freeze
 
       class StateScopeHelper
-        CALLBACKS = ::ActiveRecord::Callbacks::CALLBACKS.map(&:to_sym).to_set
-        MACROS_PATTERN = /\Avalidates_/
+        CALLBACKS = ::ActiveRecord::Callbacks::CALLBACKS.map(&:to_sym).to_set.freeze
+        MACROS_PATTERN = /\Avalidates_/.freeze
 
         def initialize(cl, state, config)
           @class, @state, @config, @conditions = cl, state, config, state.map {|x| :"#{x}?"}
@@ -72,9 +72,8 @@ module Statelogic
 
         ConfigHelper.new(self, options).instance_eval(&block)
 
-        initial = options[:initial]
-        validates_inclusion_of attr, :in => initial.to_set, :on => :create unless initial.blank?
-        #validates_inclusion_of attr, :in => options[:states].to_set
+        initial = options[:initial] || options[:states]
+        validates_inclusion_of attr, :in => initial, :on => :create unless initial.blank?
 
         const = attr.to_s.pluralize.upcase
         const_set(const, options[:states].freeze.each(&:freeze)) unless const_defined?(const)
@@ -83,6 +82,7 @@ module Statelogic
   end
 end
 
+# :stopdoc:
 class ActiveRecord::Base
   include Statelogic::ActiveRecord
 end
