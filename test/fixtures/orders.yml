@@ -1,4 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
- one:
-   state: unpaid
+unpaid:
+  state: unpaid
+
+ready:
+  state: ready
+
+redeemed:
+  state: redeemed
+
+suspended:
+  state: suspended

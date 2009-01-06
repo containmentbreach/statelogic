@@ -17,7 +17,7 @@ module Statelogic
           @class, @state, @config, @conditions = cl, state, config, state.map {|x| :"#{x}?"}
         end
 
-        def validates_transition_to(*states, &block)
+        def validates_transition_to(*states)
           attr = @config[:attribute]
           options = states.extract_options!.update(
             :in => states,
@@ -72,8 +72,9 @@ module Statelogic
 
         ConfigHelper.new(self, options).instance_eval(&block)
 
-        initial = options[:initial].to_set
-        validates_inclusion_of attr, :in => initial, :on => :create unless initial.blank?
+        initial = options[:initial]
+        validates_inclusion_of attr, :in => initial.to_set, :on => :create unless initial.blank?
+        #validates_inclusion_of attr, :in => options[:states].to_set
 
         const = attr.to_s.pluralize.upcase
         const_set(const, options[:states].freeze.each(&:freeze)) unless const_defined?(const)
