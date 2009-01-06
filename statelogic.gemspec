@@ -1,8 +1,6 @@
 Gem::Specification.new do |s|
-  s.specification_version = 2
-
   s.name = 'statelogic'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
   s.date = '2009-01-06'
   s.authors = ['Igor Gunko']
   s.email = 'tekmon@gmail.com'
@@ -37,5 +35,15 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w(README.rdoc MIT-LICENSE)
 
   s.add_dependency('activerecord', [">= 2.2.2"])
-  s.add_development_dependency('thoughtbot-shoulda', ['>= 2.0.6'])
+
+  if s.respond_to? :specification_version then
+    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
+    s.specification_version = 2
+
+    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency('thoughtbot-shoulda', ['>= 2.0.6'])
+    else
+    end
+  else
+  end
 end
