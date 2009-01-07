@@ -14,7 +14,7 @@ module Statelogic
         MACROS_PATTERN = /\Avalidates_/.freeze
 
         def initialize(cl, state, config)
-          @class, @state, @config, @conditions = cl, state, config, state.map {|x| :"#{x}?"}
+          @class, @state, @config = cl, state, config
         end
 
         def validates_transition_to(*states)
@@ -32,7 +32,7 @@ module Statelogic
           if CALLBACKS.include?(method) || method.to_s =~ MACROS_PATTERN
             options = args.last
             args.push(options = {}) unless options.is_a?(Hash)
-            options[:if] = Array(options[:if]).unshift(@conditions)
+            options[:if] = Array(options[:if]).unshift(:"#{@state}?")
             @class.send(method, *args, &block)
           else
             super
