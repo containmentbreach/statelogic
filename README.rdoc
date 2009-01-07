@@ -21,7 +21,7 @@ http://pipa.lighthouseapp.com/projects/22857-statelogic
 === Example
     class Order < ActiveRecord::Base
       ...
-      statelogic do
+      statelogic :attribute => :state do # +:state+ is the default value, may be omitted
         # you get methods +unpaid?+ and +was_unpaid?+.
         # may be more than one initial state.
         initial_state 'unpaid' do
