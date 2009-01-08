@@ -38,10 +38,22 @@ http://pipa.lighthouseapp.com/projects/22857-statelogic
         end
         state 'suspended' do # you guess
           transitions_to 'unpaid', 'ready', 'redeemed'
+          validate do |order|
+            order.errors.add(:txref, :invalid) if order.txref && order.txref !~ /\AREF/
+          end
         end
       end
       ...
     end
 
+    order = Order.new
+    order.state = 'wtf'
+    order.txref = 'orly'
+    order.valid? # Please note that state transition checks are done during
+                 # the validation step as well, and the error is added to
+                 # the model's +errors+ collection on the state column and
+                 # will appear on your form. Standard ActiveRecord's error
+                 # message +:inclusion+ is used. Override it with Rails i18n
+                 # for something more specific if it's to be displayed to user.
 
 Copyright (c) 2009 Igor Gunko, released under the MIT license

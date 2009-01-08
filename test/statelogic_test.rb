@@ -15,6 +15,9 @@ class Order < ActiveRecord::Base
     end
     state 'suspended' do
       transitions_to 'unpaid', 'ready', 'redeemed'
+      validate do |order|
+        order.errors.add(:txref, :invalid) if order.txref && order.txref !~ /\AREF/
+      end
     end
   end
 end
@@ -76,6 +79,8 @@ class OrderTest < ActiveSupport::TestCase
 
     should_allow_values_for :state, 'suspended', 'redeemed', 'ready', 'unpaid'
     should_not_allow_values_for :state, 'screwed_up', :message => default_error_message(:inclusion)
+    should_allow_values_for :txref, 'REF12345'
+    should_not_allow_values_for :txref, '12345'
     should_not_require_attributes :txref, :redeemed_at, :facility_id
   end
 end

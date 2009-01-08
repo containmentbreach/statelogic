@@ -10,7 +10,8 @@ module Statelogic
       DEFAULT_OPTIONS = {:attribute => :state}.freeze
 
       class StateScopeHelper
-        CALLBACKS = ::ActiveRecord::Callbacks::CALLBACKS.map(&:to_sym).to_set.freeze
+        CALLBACKS = (::ActiveRecord::Callbacks::CALLBACKS +
+            ::ActiveRecord::Validations::VALIDATIONS).map(&:to_sym).to_set.freeze
         MACROS_PATTERN = /\Avalidates_/.freeze
 
         def initialize(cl, state, config)
