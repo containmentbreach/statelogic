@@ -1,0 +1,2 @@
+0.1.2 - 2008-01-10
+- Support scoping arbitrary callbacks beyond ActiveRecord's

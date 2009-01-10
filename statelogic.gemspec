@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'statelogic'
-  s.version = '0.1.1'
-  s.date = '2009-01-08'
+  s.version = '0.1.2'
+  s.date = '2009-01-10'
   s.authors = ['Igor Gunko']
   s.email = 'tekmon@gmail.com'
   s.summary = 'Another state machine for ActiveRecord'
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.require_paths = %w(lib)
 
   s.files = %w(
-    README.rdoc MIT-LICENSE Rakefile
+    README.rdoc CHANGELOG MIT-LICENSE Rakefile
     lib/statelogic.rb
     lib/pipa-statelogic.rb
     lib/statelogic/activerecord.rb
@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
 
   s.has_rdoc = true
   s.rdoc_options = %w(--line-numbers --inline-source --main README.rdoc)
-  s.extra_rdoc_files = %w(README.rdoc MIT-LICENSE)
+  s.extra_rdoc_files = %w(README.rdoc CHANGELOG MIT-LICENSE)
 
   s.add_dependency('activerecord', [">= 2.2.2"])
 

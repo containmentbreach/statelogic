@@ -15,7 +15,7 @@ end
 
 desc 'Generate documentation for Statelogic.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
-  files =['README.rdoc', 'MIT-LICENSE', 'lib/**/*.rb']
+  files =['README.rdoc', 'CHANGELOG', 'MIT-LICENSE', 'lib/**/*.rb']
   rdoc.rdoc_files.add(files)
   rdoc.main = "README.rdoc" # page to start on
   rdoc.title = "Statelogic Documentation"
