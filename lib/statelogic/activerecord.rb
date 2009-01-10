@@ -10,8 +10,6 @@ module Statelogic
       DEFAULT_OPTIONS = {:attribute => :state}.freeze
 
       class StateScopeHelper
-        CALLBACKS = (::ActiveRecord::Callbacks::CALLBACKS +
-            ::ActiveRecord::Validations::VALIDATIONS).map(&:to_sym).to_set.freeze
         MACROS_PATTERN = /\Avalidates_/.freeze
 
         def initialize(cl, state, config)
@@ -30,7 +28,7 @@ module Statelogic
         alias transitions_to validates_transition_to
 
         def method_missing(method, *args, &block)
-          if CALLBACKS.include?(method) || method.to_s =~ MACROS_PATTERN
+          if method.to_s =~ MACROS_PATTERN || @class.respond_to?("#{method}_callback_chain")
             options = args.last
             args.push(options = {}) unless options.is_a?(Hash)
             options[:if] = Array(options[:if]).unshift(:"#{@state}?")
