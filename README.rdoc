@@ -1,5 +1,5 @@
 === Introduction
-Hi there!
+O hai!
 
 === Features
 - State transitions validation.
@@ -16,7 +16,9 @@ callback and validation options (as in edge Rails).
 Installable as a plugin too.
 
 === Bugs & such
-http://pipa.lighthouseapp.com/projects/22857-statelogic
+Please report via Github issue tracking.
+
+Hint: If you feel like generous today you can tip me at http://tipjoy.com/u/pisuka
 
 === Example
     class Order < ActiveRecord::Base

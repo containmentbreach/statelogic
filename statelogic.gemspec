@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   )
 
   s.has_rdoc = true
-  s.rdoc_options = %w(--line-numbers --inline-source --main README.rdoc)
+  s.rdoc_options = %w(--line-numbers --main README.rdoc)
   s.extra_rdoc_files = %w(README.rdoc CHANGELOG MIT-LICENSE)
 
   s.add_dependency('activerecord', [">= 2.2.2"])
