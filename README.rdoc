@@ -15,6 +15,9 @@ callback and validation options (as in edge Rails).
 
 Installable as a plugin too.
 
+=== Docs
+http://rdoc.info/projects/pipa/statelogic
+
 === Bugs & such
 Please report via Github issue tracking.
 
