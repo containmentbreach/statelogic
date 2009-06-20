@@ -2,8 +2,8 @@
 Statelogic is a yet another take on state management for your models.
 It's tailored specially for ActiveRecord and is different from other
 frameworks in that it has its main goal in scoping validation rules and
-callbacks depending on the model's state in order to facilitate
-enforcing _real_ model data consistency instead of merely formal.
+callbacks depending on the model's state to emphasis _actual_ model state
+consistency over merely formal... whatever...
 
 === Features
 - State transitions validation.
@@ -64,7 +64,7 @@ Please report via Github issue tracking.
 
 === See also
 * http://github.com/omg/threadpool -- Thread pool implementation
-* http://github.com/omg/xmlnuts -- Ruby <-> XML mapping
+* http://github.com/omg/peanuts -- Ruby <-> XML mapping
 
 
 Hint: If you feel like generous today you can tip me at http://tipjoy.com/u/pisuka
