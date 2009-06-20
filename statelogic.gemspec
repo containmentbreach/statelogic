@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
   s.name = 'statelogic'
-  s.version = '0.1.4'
-  s.date = '2009-04-26'
+  s.version = '1.0'
+  s.date = '2009-06-21'
   s.authors = ['Igor Gunko']
   s.email = 'tekmon@gmail.com'
   s.summary = 'Another state machine for ActiveRecord'
   s.description = <<-EOS
     Statelogic does kinda this and that... you know.
   EOS
-  s.homepage = 'http://github.com/pipa/statelogic'
+  s.homepage = 'http://github.com/omg/statelogic'
   s.rubygems_version = '1.3.1'
 
   s.require_paths = %w(lib)
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = %w(
     README.rdoc CHANGELOG MIT-LICENSE Rakefile
     lib/statelogic.rb
-    lib/pipa-statelogic.rb
+    lib/omg-statelogic.rb
     lib/statelogic/activerecord.rb
     lib/statelogic/callbacks_ext.rb
     rails/init.rb

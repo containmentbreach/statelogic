@@ -1,5 +1,9 @@
 === Introduction
-O hai!
+Statelogic is a yet another take on state management for your models.
+It's tailored specially for ActiveRecord and is different from other
+frameworks in that it has its main goal in scoping validation rules and
+callbacks depending on the model's state in order to facilitate
+enforcing _real_ model data consistency instead of merely formal.
 
 === Features
 - State transitions validation.
@@ -7,21 +11,17 @@ O hai!
 - State-scoped lifecycle callbacks (before|after_save, etc)
 - ???????
 - PROFIT!!!11
-As a bonus you get multiple conditions in <tt>:if|:unless => [:one, :two, ...]</tt>
-callback and validation options (as in edge Rails).
 
 === Installation
-  gem install pipa-statelogic --source http://gems.github.com
+  gem install omg-statelogic --source http://gems.github.com
 
 Installable as a plugin too.
 
 === Docs
-http://rdoc.info/projects/pipa/statelogic
+http://rdoc.info/projects/omg/statelogic
 
 === Bugs & such
 Please report via Github issue tracking.
-
-Hint: If you feel like generous today you can tip me at http://tipjoy.com/u/pisuka
 
 === Example
     class Order < ActiveRecord::Base
@@ -61,4 +61,14 @@ Hint: If you feel like generous today you can tip me at http://tipjoy.com/u/pisu
                  # message +:inclusion+ is used. Override it with Rails i18n
                  # for something more specific if it's to be displayed to user.
 
+
+=== See also
+* http://github.com/omg/threadpool -- Thread pool implementation
+* http://github.com/omg/xmlnuts -- Ruby <-> XML mapping
+
+
+Hint: If you feel like generous today you can tip me at http://tipjoy.com/u/pisuka
+
+
 Copyright (c) 2009 Igor Gunko, released under the MIT license
+
