@@ -9,7 +9,7 @@ require 'statelogic/activerecord'
 
 require 'shoulda_macros/statelogic'
 
-ActiveSupport::TestCase.fixture_path = 'test/fixtures'
+#ActiveRecord::TestFixtures.fixture_path = 'test/fixtures'
 
 ActiveRecord::Base.configurations = {
   'test' => {:adapter => 'sqlite3', :dbfile => ':memory:'}

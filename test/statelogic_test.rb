@@ -23,9 +23,12 @@ class Order < ActiveRecord::Base
 end
 
 class OrderTest < ActiveSupport::TestCase
+  include ActiveRecord::TestFixtures
+  self.fixture_path = 'test/fixtures'
+
   fixtures :orders
 
-  should_require_attributes :state, :message => default_error_message(:inclusion)
+  should_validate_presence_of :state, :message => default_error_message(:inclusion)
 
   context 'A fresh order' do
     setup do
@@ -57,7 +60,7 @@ class OrderTest < ActiveSupport::TestCase
     should_allow_values_for :state, 'ready', 'redeemed', 'suspended'
     should_not_allow_values_for :state, 'unpaid', 'screwed_up',
       :message => default_error_message(:inclusion)
-    should_require_attributes :txref
+    should_validate_presence_of :txref
     should_not_require_attributes :redeemed_at, :facility_id
   end
 
@@ -69,7 +72,7 @@ class OrderTest < ActiveSupport::TestCase
     should_allow_values_for :state, 'redeemed', 'suspended'
     should_not_allow_values_for :state, 'unpaid', 'ready', 'screwed_up',
       :message => default_error_message(:inclusion)
-    should_require_attributes :txref, :redeemed_at, :facility_id
+    should_validate_presence_of :txref, :redeemed_at, :facility_id
   end
 
   context 'A suspended order' do
