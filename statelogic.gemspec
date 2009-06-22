@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'statelogic'
-  s.version = '1.0.1'
-  s.date = '2009-06-22'
+  s.version = '1.0.2'
+  s.date = '2009-06-23'
   s.authors = ['Igor Gunko']
   s.email = 'tekmon@gmail.com'
   s.summary = 'Another state machine for ActiveRecord'

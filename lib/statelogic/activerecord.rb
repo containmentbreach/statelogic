@@ -47,6 +47,8 @@ module Statelogic
         def initial_state(name, options = {}, &block)
           state(name, options.update(:initial => true), &block)
         end
+        
+        alias initial initial_state
 
         def state(name, options = {}, &block)
           attr = @config[:attribute]
@@ -71,8 +73,8 @@ module Statelogic
 
         ConfigHelper.new(self, options).instance_eval(&block)
 
-        initial = options[:initial] || options[:states]
-        validates_inclusion_of attr, :in => initial, :on => :create unless initial.blank?
+        initial = [options[:initial], options[:states]].find {|x| !x.blank? }
+        validates_inclusion_of attr, :in => initial, :on => :create if initial
 
         const = attr.to_s.pluralize.upcase
         const_set(const, options[:states].freeze.each(&:freeze)) unless const_defined?(const)
