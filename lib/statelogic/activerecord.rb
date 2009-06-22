@@ -58,7 +58,7 @@ module Statelogic
             define_method("was_#{name}?") { send(attr_was) == name }
           end
 
-          StateScopeHelper.new(@class, name, @config).instance_eval(&block)
+          StateScopeHelper.new(@class, name, @config).instance_eval(&block) if block_given?
 
           @config[:states] << name
           @config[:initial] << name if options[:initial]
