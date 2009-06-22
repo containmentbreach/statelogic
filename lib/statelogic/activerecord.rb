@@ -1,4 +1,4 @@
-require 'statelogic/callbacks_ext'
+require 'statelogic/callbacks_ext' unless ([ActiveRecord::VERSION::MAJOR, ActiveRecord::VERSION::MINOR] <=> [2, 3]) >= 0
 
 module Statelogic
   module ActiveRecord
