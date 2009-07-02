@@ -73,7 +73,7 @@ module Statelogic
 
         ConfigHelper.new(self, options).instance_eval(&block)
 
-        initial = [options[:initial], options[:states]].find {|x| !x.blank? }
+        initial = [options[:initial], options[:states]].find(&:present?)
         validates_inclusion_of attr, :in => initial, :on => :create if initial
 
         const = attr.to_s.pluralize.upcase
@@ -83,7 +83,5 @@ module Statelogic
   end
 end
 
-# :stopdoc:
-class ActiveRecord::Base
-  include Statelogic::ActiveRecord
-end
+ActiveRecord::Base.send :include, Statelogic::ActiveRecord
+
