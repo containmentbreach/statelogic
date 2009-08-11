@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
     s.specification_version = 2
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency('thoughtbot-shoulda', ['>= 2.10.1'])
+      s.add_development_dependency('thoughtbot-shoulda', ['>= 2.10.2'])
       s.add_development_dependency('sqlite3-ruby', ['>= 1.2.4'])
     else
     end
