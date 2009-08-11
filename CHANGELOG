@@ -1,2 +1,8 @@
-0.1.2 - 2008-01-10
+1.1 - 2009-08-11
+- adds finder methods in the form of find_all_#{state}(*args)
+- adds named scope named after corresponding state
+- no longer redefines existing methods with the same names, issues warnings instead
+- forces state names to underscore notation when used as part of method/scope names
+
+0.1.2 - 2009-01-10
 - Support scoping arbitrary callbacks beyond ActiveRecord's

@@ -1,6 +1,27 @@
 require 'statelogic/callbacks_ext' unless ([ActiveRecord::VERSION::MAJOR, ActiveRecord::VERSION::MINOR] <=> [2, 3]) >= 0
 
 module Statelogic
+  module Util
+    def self.debug(msg = nil, &block)
+      ::ActiveRecord::Base.logger.debug(msg, &block) if ::ActiveRecord::Base.logger
+    end
+
+    def self.warn(msg = nil, &block)
+      ::ActiveRecord::Base.logger.warn(msg, &block) if ::ActiveRecord::Base.logger
+    end
+
+    def self.defmethod(cls, name, meta = false, &block)
+      c = meta ? cls.metaclass : cls
+      unless c.method_defined?(name)
+        c.send(:define_method, name, &block)
+        Util.debug { "Statelogic created #{meta ? 'class' : 'instance'} method #{name} on #{cls.name}." }
+      else
+        warn { "Statelogic won't override #{meta ? 'class' : 'instance'} method #{name} already defined on #{cls.name}." }
+        nil
+      end
+    end
+  end
+    
   module ActiveRecord
     def self.included(other)
       other.extend(ClassMethods)
@@ -51,12 +72,23 @@ module Statelogic
         alias initial initial_state
 
         def state(name, options = {}, &block)
+          name = name.to_s
+          uname = name.underscore
           attr = @config[:attribute]
           attr_was = :"#{attr}_was"
-          @class.class_eval do
-            define_method("#{name}?") { send(attr) == name }
-            define_method("was_#{name}?") { send(attr_was) == name }
+          find_all_by_attr = "find_all_by_#{attr}"
+
+          Util.defmethod(@class, "#{uname}?") { send(attr) == name }
+          Util.defmethod(@class, "was_#{uname}?") { send(attr_was) == name }
+
+          unless @class.respond_to?(name)
+            @class.send(:named_scope, uname, :conditions => {attr.to_sym => name })
+            Util.debug { "Statelogic has defined named scope #{uname} on #{@class.name}." }
+          else
+            Util.warn { "Statelogic won't override class method #{uname} already defined on #{@class.name}." }
           end
+
+          Util.defmethod(@class, "find_all_#{uname}", true) {|*args| send(find_all_by_attr, name, *args) }
 
           StateScopeHelper.new(@class, name, @config).instance_eval(&block) if block_given?
 

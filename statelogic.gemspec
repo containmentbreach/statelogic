@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'statelogic'
-  s.version = '1.0.2'
-  s.date = '2009-06-23'
+  s.version = '1.1'
+  s.date = '2009-08-11'
   s.authors = ['Igor Gunko']
   s.email = 'tekmon@gmail.com'
   s.summary = 'Another state machine for ActiveRecord'
@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
     Statelogic does kinda this and that... you know.
   EOS
   s.homepage = 'http://github.com/omg/statelogic'
+  s.post_install_message = 'v1.1 introduces changes that may (or may not) be incompatible for you. Please review them at http://github.com/omg/statelogic'
   s.rubygems_version = '1.3.1'
 
   s.require_paths = %w(lib)
