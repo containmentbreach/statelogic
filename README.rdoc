@@ -12,6 +12,13 @@ consistency over merely formal... whatever...
 - ???????
 - PROFIT!!!11
 
+=== Changes in v1.2
+_Please review these carefully as they may be incompatible with your existing code._
+- for all defined states also adds named_scopes :"#{attr_name}_is_#{state_name}"
+  for example if state is :new, tries to add named_scope :new (it fails) and then
+  it adds :state_is_new so the named_scope for state :new is still accessible
+  [by Petr Chalupa (http://github.com/pitrch)]
+
 === Changes in v1.1
 _Please review these carefully as they may be incompatible with your existing code._
 - adds finder methods in the form of +find_all_#{state}(*args)+ (Order.find_all_ready) sugg. by ares
@@ -20,7 +27,7 @@ _Please review these carefully as they may be incompatible with your existing co
 - forces state names to underscore notation when used as part of method names
 
 === Installation
-  gem install omg-statelogic --source http://gems.github.com
+  gem install statelogic
 
 Installable as a plugin too.
 
@@ -39,7 +46,7 @@ Please report via Github issue tracking.
         initial_state 'unpaid' do
           transitions_to 'ready', 'suspended' # won't let you change to wrong states
         end
-        state 'ready' do # you get +ready?+, +was_ready?+, +Order.ready+ named scope and +Order.find_all_ready+ finder
+        state 'ready' do # you get +ready?+, +was_ready?+; +Order.ready+, +Order.state_is_ready+; named scopes and +Order.find_all_ready+ finder
           transitions_to 'redeemed', 'suspended'
           validates_presence_of :txref # scoped validations
           before_save :prepare_for_plucking # scoped callbacks
@@ -69,13 +76,13 @@ Please report via Github issue tracking.
                  # for something more specific if it's to be displayed to user.
 
 
+=== Contributors:
+- Petr Chalupa (http://github.com/pitrch)
+
 === See also
 * http://github.com/omg/threadpool -- Thread pool implementation
-* http://github.com/omg/peanuts -- Ruby <-> XML mapping
-
-
-Hint: If you feel like generous today you can tip me at http://tipjoy.com/u/pisuka
-
+* http://github.com/omg/peanuts    -- Ruby <-> XML mapping
+* http://github.com/omg/slash      -- HTTP/REST client
 
 Copyright (c) 2009 Igor Gunko, released under the MIT license
 

@@ -1,3 +1,9 @@
+1.2 - 2010-03-16
+- for all defined states also adds named_scopes :"#{attr_name}_is_#{state_name}"
+  for example if state is :new, tries to add named_scope :new (it fails) and then
+  it adds :state_is_new so the named_scope for state :new is still accessible
+  [by Petr Chalupa (http://github.com/pitrch)]
+
 1.1 - 2009-08-11
 - adds finder methods in the form of find_all_#{state}(*args)
 - adds named scope named after corresponding state

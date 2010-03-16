@@ -1,6 +1,8 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
+require 'rake/gempackagetask'
+
 
 desc 'Default: run unit tests.'
 task :default => :test
@@ -22,3 +24,9 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'doc/rdoc' # rdoc output folder
   rdoc.options << '--line-numbers' << '--inline-source'
 end
+
+Rake::GemPackageTask.new(Gem::Specification.load('statelogic.gemspec')) do |p|
+  p.need_tar = true
+  p.need_zip = true
+end
+

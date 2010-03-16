@@ -8,11 +8,12 @@ class OrderTest < ActiveSupport::TestCase
 
   fixtures :orders
   
-  should_have_class_methods :unpaid,          :ready,          :redeemed,          :suspended
-  should_have_class_methods :find_all_unpaid, :find_all_ready, :find_all_redeemed, :find_all_suspended
+  should_have_class_methods                 :unpaid,         :ready,          :redeemed,          :suspended
+  should_have_class_methods :state_is_new, :state_is_unpaid, :state_is_ready, :state_is_redeemed, :state_is_suspended
+  should_have_class_methods :find_all_new, :find_all_unpaid, :find_all_ready, :find_all_redeemed, :find_all_suspended
 
-  should_have_instance_methods :unpaid?,     :ready?,     :redeemed?,     :suspended?
-  should_have_instance_methods :was_unpaid?, :was_ready?, :was_redeemed?, :was_suspended?
+  should_have_instance_methods :new?,     :unpaid?,     :ready?,     :redeemed?,     :suspended?
+  should_have_instance_methods :was_new?, :was_unpaid?, :was_ready?, :was_redeemed?, :was_suspended?
 
   context 'Finders and scopes' do
     should 'return adequate shit' do
@@ -28,10 +29,20 @@ class OrderTest < ActiveSupport::TestCase
   context 'A fresh order' do
     subject { Order.new }
 
-    should_allow_values_for :state, 'unpaid'
+    should_allow_values_for :state, 'unpaid', 'new'
     should_not_allow_values_for :state, 'ready', 'redeemed', 'suspended', 'screwed_up',
       :message => default_error_message(:inclusion)
     should_not_require_attributes :txref, :redeemed_at, :facility_id
+  end
+
+  context 'A new order' do
+    subject { orders(:new) }
+
+    should_allow_values_for :state, 'redeemed', 'suspended'
+    should_not_allow_values_for :state, 'ready', 'screwed_up',
+      :message => default_error_message(:inclusion)
+    should_validate_presence_of :txref
+    should_not_require_attributes :redeemed_at, :facility_id
   end
 
   context 'An unpaid order' do

@@ -1,7 +1,8 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 unpaid:
   state: unpaid
+
+new:
+  state: new
 
 ready:
   state: ready

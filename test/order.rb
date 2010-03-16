@@ -3,6 +3,10 @@ class Order < ActiveRecord::Base
     initial_state 'unpaid' do
       transitions_to 'ready', 'suspended'
     end
+    initial_state 'new' do
+      transitions_to 'redeemed', 'suspended'
+      validates_presence_of :txref
+    end
     state 'ready' do
       transitions_to 'redeemed', 'suspended'
       validates_presence_of :txref

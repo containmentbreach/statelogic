@@ -14,7 +14,7 @@ module Statelogic
       c = meta ? cls.metaclass : cls
       unless c.method_defined?(name)
         c.send(:define_method, name, &block)
-        Util.debug { "Statelogic created #{meta ? 'class' : 'instance'} method #{name} on #{cls.name}." }
+        debug { "Statelogic created #{meta ? 'class' : 'instance'} method #{name} on #{cls.name}." }
       else
         warn { "Statelogic won't override #{meta ? 'class' : 'instance'} method #{name} already defined on #{cls.name}." }
         nil
@@ -81,15 +81,16 @@ module Statelogic
           Util.defmethod(@class, "#{uname}?") { send(attr) == name }
           Util.defmethod(@class, "was_#{uname}?") { send(attr_was) == name }
 
-          unless @class.respond_to?(name)
-            @class.send(:named_scope, uname, :conditions => {attr.to_sym => name })
-            Util.debug { "Statelogic has defined named scope #{uname} on #{@class.name}." }
-          else
-            Util.warn { "Statelogic won't override class method #{uname} already defined on #{@class.name}." }
+          [uname, "#{attr}_is_#{uname}".to_sym].each do |named_scope_name|
+            unless @class.respond_to?(named_scope_name)
+              @class.send(:named_scope, named_scope_name, :conditions => {attr.to_sym => name })
+              Util.debug { "Statelogic has defined named scope #{named_scope_name} on #{@class.name}." }
+            else
+              Util.warn { "Statelogic won't override class method #{named_scope_name} already defined on #{@class.name}." }
+            end
           end
 
           Util.defmethod(@class, "find_all_#{uname}", true) {|*args| send(find_all_by_attr, name, *args) }
-
           StateScopeHelper.new(@class, name, @config).instance_eval(&block) if block_given?
 
           @config[:states] << name

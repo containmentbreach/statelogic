@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'statelogic'
-  s.version = '1.1'
-  s.date = '2009-08-11'
+  s.version = '1.2'
+  s.date = '2010-03-16'
   s.authors = ['Igor Gunko']
   s.email = 'tekmon@gmail.com'
   s.summary = 'Another state machine for ActiveRecord'
@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.files = %w(
     README.rdoc CHANGELOG MIT-LICENSE Rakefile
     lib/statelogic.rb
-    lib/omg-statelogic.rb
     lib/statelogic/activerecord.rb
     lib/statelogic/callbacks_ext.rb
     rails/init.rb
@@ -42,8 +41,8 @@ Gem::Specification.new do |s|
     s.specification_version = 2
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency('thoughtbot-shoulda', ['>= 2.10.2'])
-      s.add_development_dependency('sqlite3-ruby', ['>= 1.2.4'])
+      s.add_development_dependency('shoulda', ['~> 2.10.3'])
+      s.add_development_dependency('sqlite3-ruby', ['>= 1.2.5'])
     else
     end
   else
